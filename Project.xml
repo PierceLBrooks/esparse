@@ -20,6 +20,12 @@
                     <default><quit></quit></default>
                   </switch>
                 </command>
+                <command>
+                  <switch id="BUILDSTER_OS">
+                    <case check="Windows">install.bat <install></install></case>
+                    <default><quit></quit></default>
+                  </switch>
+                </command>
               </commands>
             </shell>
           </shells>
