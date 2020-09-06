@@ -1,0 +1,6 @@
+[submodule "Buildster"]
+	path = Buildster
+	url = https://github.com/PierceLBrooks/Buildster.git
+[submodule "Project/libespm"]
+	path = Project/libespm
+	url = https://github.com/PierceLBrooks/libespm.git
