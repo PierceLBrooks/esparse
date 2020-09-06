@@ -10,6 +10,19 @@
 				</local>
 				<build>
 					<arguments></arguments>
+          <shells>
+            <shell>
+              <work><data id="BUILDSTER_WD"></data>/../boost</work>
+              <commands>
+                <command>
+                  <switch id="BUILDSTER_OS">
+                    <case check="Windows">bootstrap.bat</case>
+                    <default><quit></quit></default>
+                  </switch>
+                </command>
+              </commands>
+            </shell>
+          </shells>
 				</build>
 				<exports>
 					<export type="headers">
@@ -23,33 +36,22 @@
 				</exports>
 				<imports></imports>
 			</dependency>
-			<dependency>
+		</dependencies>
+		<targets>
+			<target type="library">
 				<label>libespm</label>
-				<subpath>build</subpath>
-				<remote>
-					<url>https://github.com/PierceLBrooks/libespm.git</url>
-					<git_repo>
-						<branch>master</branch>
-						<credentials>
-							<username>username</username>
-							<password>password</password>
-						</credentials>
-					</git_repo>
-				</remote>
-				<build>
-					<arguments></arguments>
-					<cmake>
-						<generator>
-							<switch id="BUILDSTER_OS">
-								<case check="Windows">MinGW Makefiles</case>
-								<case check="Linux">Unix Makefiles</case>
-								<case check="Darwin">Unix Makefiles</case>
-								<default><quit></quit></default>
-							</switch>
-						</generator>
-						<source>..</source>
-					</cmake>
-				</build>
+				<definitions></definitions>
+				<links>
+					<if_check id="BUILDSTER_OS" check="Windows">
+						<link>setupapi</link>
+						<link>iphlpapi</link>
+						<link>psapi</link>
+						<link>userenv</link>
+						<link>gdi32</link>
+						<link>crypt32</link>
+						<link>ws2_32</link>
+					</if_check>
+				</links>
 				<exports>
 					<export type="headers">
 						<key>LIBESPM_INCLUDE_PATH</key>
@@ -61,11 +63,9 @@
 					</export>
 				</exports>
 				<imports>
-          <import>boost</import>
-        </imports>
-			</dependency>
-		</dependencies>
-		<targets>
+					<import>boost</import>
+				</imports>
+			</target>
 			<target type="executable">
 				<label>esparse</label>
 				<definitions></definitions>
