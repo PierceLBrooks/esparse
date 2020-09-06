@@ -1,0 +1,6 @@
+[submodule "boost"]
+	path = boost
+	url = https://github.com/PierceLBrooks/boost.git
+[submodule "Buildster"]
+	path = Buildster
+	url = https://github.com/PierceLBrooks/Buildster.git

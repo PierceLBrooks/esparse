@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildster directory="../build">
+	<project directory="../Project">
+		<dependencies>
+			<dependency>
+				<label>boost</label>
+				<subpath>build</subpath>
+				<local>
+					<path><data id="BUILDSTER_WD"></data>/../boost</path>
+				</local>
+				<build>
+					<arguments></arguments>
+				</build>
+				<exports>
+					<export type="headers">
+						<key>BOOST_INCLUDE_PATH</key>
+						<value><install></install></value>
+					</export>
+					<export type="libraries">
+						<key>BOOST_LIBRARIES</key>
+						<value><install></install></value>
+					</export>
+				</exports>
+				<imports></imports>
+			</dependency>
+			<dependency>
+				<label>libespm</label>
+				<subpath>build</subpath>
+				<remote>
+					<url>https://github.com/PierceLBrooks/libespm.git</url>
+					<git_repo>
+						<branch>master</branch>
+						<credentials>
+							<username>username</username>
+							<password>password</password>
+						</credentials>
+					</git_repo>
+				</remote>
+				<build>
+					<arguments></arguments>
+					<cmake>
+						<generator>
+							<switch id="BUILDSTER_OS">
+								<case check="Windows">MinGW Makefiles</case>
+								<case check="Linux">Unix Makefiles</case>
+								<case check="Darwin">Unix Makefiles</case>
+								<default><quit></quit></default>
+							</switch>
+						</generator>
+						<source>..</source>
+					</cmake>
+				</build>
+				<exports>
+					<export type="headers">
+						<key>LIBESPM_INCLUDE_PATH</key>
+						<value><install></install>/include</value>
+					</export>
+					<export type="libraries">
+						<key>LIBESPM_LIBRARIES</key>
+						<value><install></install>/lib</value>
+					</export>
+				</exports>
+				<imports>
+          <import>boost</import>
+        </imports>
+			</dependency>
+		</dependencies>
+		<targets>
+			<target type="executable">
+				<label>esparse</label>
+				<definitions></definitions>
+				<links>
+					<link>libespm</link>
+					<if_check id="BUILDSTER_OS" check="Windows">
+						<link>setupapi</link>
+						<link>iphlpapi</link>
+						<link>psapi</link>
+						<link>userenv</link>
+						<link>gdi32</link>
+						<link>crypt32</link>
+						<link>ws2_32</link>
+					</if_check>
+				</links>
+				<imports>
+					<import>boost</import>
+					<import>libespm</import>
+				</imports>
+			</target>
+		</targets>
+	</project>
+</buildster>
