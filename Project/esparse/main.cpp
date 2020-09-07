@@ -1,17 +1,17 @@
 
 // Author: Pierce Brooks
 
+#include <set>
+#include <string>
 #include <iostream>
 #include "Plugin.h"
 
-#define SKYRIM_PLUGIN "Skyrim.esm"
-
 using namespace libespm;
 
-class Skyrim : public Plugin
+class ElderScrolls : public Plugin
 {
     public:
-        inline Skyrim(GameId gameId) : Plugin(gameId)
+        inline ElderScrolls(GameId gameId) : Plugin(gameId)
         {
             std::cout << "Hello, world!" << std::endl;
         }
@@ -21,23 +21,77 @@ class Skyrim : public Plugin
         }
 };
 
-int main()
+GameId getPluginType(const std::string& name)
 {
-    int index = 0;
-    Skyrim plugin(GameId::SKYRIM);
-    plugin.load(SKYRIM_PLUGIN);
+    if (name == "Skyrim.esm")
+    {
+        return GameId::SKYRIM;
+    }
+    if (name == "Oblivion.esm")
+    {
+        return GameId::OBLIVION;
+    }
+    return GameId::MORROWIND;
+}
+
+int run(const std::string& name)
+{
+    int index;
+    std::vector<std::string> names;
+    std::string type = "";
+    ElderScrolls plugin(getPluginType(name));
+    plugin.load(name);
+    std::cout << plugin.getName() << std::endl;
+    std::cout << plugin.getHeaderRecord().getType() << std::endl;
     std::cout << plugin.getFormIds().size() << std::endl;
-    for (const auto& subrecord : plugin.getHeaderRecord().getSubrecords())
+    /*for (const auto& subrecord : plugin.getHeaderRecord().getSubrecords())
     {
         std::cout << subrecord.getType() << std::endl;
-    }
-    for (std::set<FormId>::const_iterator iter = plugin.getFormIds().begin(); iter != plugin.getFormIds().end(); iter++)
+    }*/
+    index = 0;
+    /*for (std::set<FormId>::const_iterator i = plugin.getFormIds().begin(); i != plugin.getFormIds().end(); i++)
     {
-        if (iter->getPluginName() != SKYRIM_PLUGIN)
+        if (i->getPluginName() != name)
         {
-            std::cout << iter->getPluginName() << "@" << index << std::endl;
+            std::cout << i->getPluginName() << " @ " << index << std::endl;
+        }
+        ++index;
+    }*/
+    index = 0;
+    for (std::vector<Record>::const_iterator i = plugin.getRecords().begin(); i != plugin.getRecords().end(); i++)
+    {
+        if ((type.empty()) || (type != i->getType()))
+        {
+            type = i->getType();
+            //std::cout << type << " @ " << index << std::endl;
+            type = "";
+            for (std::vector<Subrecord>::const_iterator j = i->getSubrecords().begin(); j != i->getSubrecords().end(); j++)
+            {
+                if ((type.empty()) || (type != j->getType()))
+                {
+                    type = j->getType();
+                    //std::cout << "\t" << type << std::endl;
+                    if (type == "EDID")
+                    {
+                        //names.push_back(Plugin::convertToUtf8(std::string(j->getRawData().first.get())));
+                        names.push_back(std::string(j->getRawData().first.get()));
+                        std::cout << names.back() << " @ " << index << " ( " << i->getType() << " ) " << std::endl;
+                    }
+                }
+            }
+            type = i->getType();
         }
         ++index;
     }
     return 0;
+}
+
+int main(int argc, char** argv)
+{
+    if (argc < 2)
+    {
+        return run("Skyrim.esm");
+    }
+    std::string name = std::string(argv[1]);
+    return run(name);
 }
