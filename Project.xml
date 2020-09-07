@@ -12,7 +12,7 @@
 					<arguments></arguments>
           <shells>
             <shell>
-              <work><data id="BUILDSTER_WD"></data>/../boost</work>
+              <work><data id="BUILDSTER_WD"></data>/../boost/tools/build</work>
               <commands>
                 <command>
                   <switch id="BUILDSTER_OS">
@@ -22,7 +22,18 @@
                 </command>
                 <command>
                   <switch id="BUILDSTER_OS">
-                    <case check="Windows">install.bat <install></install></case>
+                    <case check="Windows">b2.exe --prefix=<install></install>/install install</case>
+                    <default><quit></quit></default>
+                  </switch>
+                </command>
+              </commands>
+            </shell>
+            <shell>
+              <work><data id="BUILDSTER_WD"></data>/../boost</work>
+              <commands>
+                <command>
+                  <switch id="BUILDSTER_OS">
+                    <case check="Windows"><install></install>/install/bin/b2.exe --with-filesystem --with-iostreams --with-locale --build-dir=<install></install>/build --prefix=<install></install>/final toolset=gcc --build-type=minimal install</case>
                     <default><quit></quit></default>
                   </switch>
                 </command>
@@ -33,11 +44,11 @@
 				<exports>
 					<export type="headers">
 						<key>BOOST_INCLUDE_PATH</key>
-						<value><install></install></value>
+						<value><install></install>/final/include/boost-1_75</value>
 					</export>
 					<export type="libraries">
 						<key>BOOST_LIBRARIES</key>
-						<value><install></install></value>
+						<value><install></install>/final/lib</value>
 					</export>
 				</exports>
 				<imports></imports>
@@ -48,6 +59,7 @@
 				<label>libespm</label>
 				<definitions></definitions>
 				<links>
+          <link>*boost*</link>
 					<if_check id="BUILDSTER_OS" check="Windows">
 						<link>setupapi</link>
 						<link>iphlpapi</link>
@@ -56,6 +68,7 @@
 						<link>gdi32</link>
 						<link>crypt32</link>
 						<link>ws2_32</link>
+						<link>iconv</link>
 					</if_check>
 				</links>
 				<exports>
@@ -77,6 +90,7 @@
 				<definitions></definitions>
 				<links>
 					<link>libespm</link>
+          <link>*boost*</link>
 					<if_check id="BUILDSTER_OS" check="Windows">
 						<link>setupapi</link>
 						<link>iphlpapi</link>
@@ -85,6 +99,7 @@
 						<link>gdi32</link>
 						<link>crypt32</link>
 						<link>ws2_32</link>
+						<link>iconv</link>
 					</if_check>
 				</links>
 				<imports>
