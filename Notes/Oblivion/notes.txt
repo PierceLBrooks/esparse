@@ -1,0 +1,156 @@
+
+https://en.uesp.net/wiki/Tes4Mod:Mod_File_Format
+
+ACHR
+- NAME
+- XHRS
+- XMRC
+
+ACRE
+- NAME
+- XOWN
+- XRNK
+
+ACTI
+- SCRI
+- SNAM
+
+ALCH
+- SCRI
+
+AMMO
+- ENAM
+
+ANIO
+- DATA (?)
+
+APPA
+- SCRI
+
+ARMO
+- SCRI
+- ENAM
+
+BOOK
+- SCRI
+- ENAM
+
+BSGN
+- SPLO
+
+CELL
+- XOWN
+- XGLB
+- XCCM
+- XCWT
+- XCLR (*)
+
+CLOT
+- SCRI
+- ENAM
+
+CONT
+- SNAM
+- QNAM
+- SCRI
+- CNTO
+
+CREA
+- SNAM
+- INAM
+- SPLO
+- SCRI
+- CNTO
+- PKID
+- ZNAM
+- CSCR
+- CSDI
+
+DIAL
+- QSTI
+- QSTR
+
+DOOR
+- SCRI
+- SNAM
+- ANAM
+- BNAM
+- TNAM
+
+ENCH
+- SCIT
+
+FLOR
+- SCRI
+- PFIG
+
+FURN
+- SCRI
+
+INFO
+- QSTI
+- PNAM
+- TCLT
+- NAME
+- SCRO
+
+INGR
+- SCRI
+
+KEYM
+- SCRI
+
+LIGH
+- SCRI
+- SNAM
+
+LTEX
+- GNAM
+
+LVLC
+- SCRI
+- TNAM
+
+MISC
+- SCRI
+
+NPC_
+- SNAM
+- INAM
+- RNAM
+- SPLO
+- SCRI
+- CNTO
+- PKID
+- CNAM
+- HNAM
+- ENAM
+- ZNAM
+
+QUST
+- SCRI
+- SCRO
+
+REFR
+- XOWN
+- XGLB
+- XTRG
+- XRTM
+
+SGST
+- SCRI
+
+SLGM
+- SCRI
+
+WEAP
+- SCRI
+- ENAM
+
+WRLD
+- WNAM
+- CNAM
+- NAM2
+
+WTHR
+- SNAM

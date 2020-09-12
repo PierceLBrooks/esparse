@@ -1,0 +1,2 @@
+
+osage -Tsvg -oOblivion.svg Oblivion.esm.dot
