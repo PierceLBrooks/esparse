@@ -268,11 +268,14 @@ int run(const std::string& name)
     {
         for (std::map<std::string, std::vector<uint32_t>>::iterator j = i->second.begin(); j != i->second.end(); j++)
         {
-            for (int idx = 0; idx < j->second.size(); idx++)
+            if (j->second.size() < 20)
             {
-                if (all.find(j->second[idx]) != all.end())
+                for (int idx = 0; idx < j->second.size(); idx++)
                 {
-                    output << "\tnode_" << i->first << " -> node_" << j->second[idx] << " [label=\"" << j->first << "\"];" << std::endl;
+                    if (all.find(j->second[idx]) != all.end())
+                    {
+                        output << "\tnode_" << i->first << " -> node_" << j->second[idx] << " [label=\"" << j->first << "\"];" << std::endl;
+                    }
                 }
             }
         }
